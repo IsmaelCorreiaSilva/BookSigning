@@ -1,43 +1,41 @@
-using BookSigning.Data;
-using BookSigning.Entities;
+using Application.Interfaces;
+using Application.Models.Book;
+using Infra.IoC.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDependencyInjectionConfiguration();
 var app = builder.Build();
 
-app.MapGet("/v1/books", async () => {
-    var bookData = new BookData();
-    var books = await bookData.GetAll();
+app.MapGet("/v1/books", async (IBookService bookService) => {
+    var books = await bookService.GetAll();
     return Results.Ok(books);
 });
-app.MapGet("/v1/books/{id}", async (int id) => {
-    var bookData = new BookData();
-    var book = await bookData.GetById(id);
+app.MapGet("/v1/books/{id}", async (IBookService bookService, int id) =>
+{
+    var book = await bookService.GetById(id);
     return Results.Ok(book);
 });
-app.MapPost("/v1/books", async (Book createBook) =>
+app.MapPost("/v1/books", async (IBookService bookService, BookCreateModel createBook) =>
 {
-    var bookData = new BookData();
-    var book = await bookData.Insert(createBook);
-    
+    var book = await bookService.Insert(createBook);
+
     return Results.Created($"/v1/books/{book}", book);
 });
-app.MapPut("/v1/books/{id}", async (int id, Book updateBook) =>
+app.MapPut("/v1/books/", async (IBookService bookService, BookUpdateModel updateBook) =>
 {
-    var bookData = new BookData();
-    var book = await bookData.GetById(id);
-    
-    if(book == null)
+    var book = await bookService.GetById(updateBook.Id);
+
+    if (book == null)
         return Results.BadRequest();
 
-    await bookData.Update(id, updateBook);
+    await bookService.Update(updateBook);
     return Results.Ok();
 });
-app.MapDelete("/v1/books/{id}", async (int id) =>
+app.MapDelete("/v1/books/{id}", async (IBookService bookService, int id) =>
 {
-    var bookData = new BookData();
-    var result = await bookData.DeleteById(id);
-    
-    if(result == 1)
+    var result = await bookService.DeleteById(id);
+
+    if (result == 1)
         return Results.NoContent();
 
     return Results.BadRequest();

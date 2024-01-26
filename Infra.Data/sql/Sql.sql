@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS Books;
+﻿DROP TABLE IF EXISTS Books;
 CREATE TABLE Books(
 	Id int not null auto_increment primary key,
 	Title varchar(100) not null,
