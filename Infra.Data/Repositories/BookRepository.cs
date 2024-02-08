@@ -16,7 +16,7 @@ namespace Infra.Data.Repositories
         }
         public async Task<int> DeleteById(int id)
         {
-            var sql = "DELETE FROM Books WHERE Id = @id";
+            var sql = "DELETE FROM Books WHERE boo_id = @id";
             var parameters = new
             {
                 id
@@ -36,7 +36,7 @@ namespace Infra.Data.Repositories
 
         public async Task<Book> GetById(int id)
         {
-            var sql = "SELECT * FROM Books WHERE Id = @id";
+            var sql = "SELECT * FROM Books WHERE boo_id = @id";
             var parameters = new
             {
                 id
@@ -48,7 +48,7 @@ namespace Infra.Data.Repositories
 
         public async Task<int> Insert(Book book)
         {
-            var sql = "INSERT INTO Books (Title, Summary, PublishingCompany, Author, ReleaseDate) VALUES(@Title, @Summary, @PublishingCompany, @Author, @ReleaseDate)";
+            var sql = "INSERT INTO Books (boo_title, boo_summary, boo_publishingCompany, boo_author, boo_ReleaseDate) VALUES(@Title, @Summary, @PublishingCompany, @Author, @ReleaseDate)";
             var parameters = new
             {
                 book.Title,
@@ -65,7 +65,7 @@ namespace Infra.Data.Repositories
 
         public async Task<int> Update(Book book)
         {
-            var sql = "UPDATE Books SET Title = @Title, Summary = @Summary, PublishingCompany = @PublishingCompany, Author = @Author, ReleaseDate = @ReleaseDate WHERE Id = @Id";
+            var sql = "UPDATE Books SET boo_title = @Title, boo_summary = @Summary, boo_publishingCompany = @PublishingCompany, boo_author = @Author, boo_releaseDate = @ReleaseDate WHERE boo_id = @Id";
             var parameters = new
             {
                 book.Id,

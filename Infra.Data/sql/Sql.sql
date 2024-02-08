@@ -1,10 +1,15 @@
 ﻿DROP TABLE IF EXISTS Books;
 CREATE TABLE Books(
-	Id int not null auto_increment primary key,
-	Title varchar(100) not null,
-	Summary varchar(1000) not null,
-	PublishingCompany varchar(100) not null,
-	Author varchar(100) not null,
-	ReleaseDate date not null,
+	boo_id int not null auto_increment primary key,
+	boo_title varchar(100) not null,
+	boo_summary varchar(1000) not null,
+	boo_publishingCompany varchar(100) not null,
+	boo_author varchar(100) not null,
+	boo_releaseDate date not null,
 
+);
+CREATE TABLE SubscriptionType(
+	sub_title varchar(100) not null,
+	sub_description varchar(500) not null,
+	sub_price decimal not null
 );
