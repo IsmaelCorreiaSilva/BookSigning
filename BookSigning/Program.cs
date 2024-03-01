@@ -2,7 +2,6 @@ using Application.Interfaces;
 using Application.Interfaces.SubscriptionType;
 using Application.Models.Book;
 using Application.Models.SubscriptionType;
-using Core.Entities;
 using Infra.IoC.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,7 +44,7 @@ app.MapDelete("/v1/books/{id}", async (IBookService bookService, int id) =>
 });
 app.MapPost("/v1/subscriptiontype", async (ICreateSubscriptionTypeService service, SubscriptionTypeCreateModel create) =>
 {
-    var result = await service.CreateSubscriptionAsync(create);
+    var result = await service.CreateSubscriptionTypeAsync(create);
 
     return Results.Created($"/v1/books/{result}", result);
 });

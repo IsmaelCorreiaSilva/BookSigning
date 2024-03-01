@@ -7,11 +7,13 @@ namespace Application.Services.SubscriptionType
 {
     public class UptadeSubscriptionTypeService : IUpdateSubscriptionTypeService
     {
-        private readonly IUpdateSubscriptionTypeRepository repository;
+        private readonly IUpdateSubscriptionTypeRepository repositoryUpdate;
+        private readonly ISearchSubscriptionTypeRepository repositorySearch;
 
-        public UptadeSubscriptionTypeService(IUpdateSubscriptionTypeRepository repository)
+        public UptadeSubscriptionTypeService(IUpdateSubscriptionTypeRepository repositoryUpdate, ISearchSubscriptionTypeRepository repositorySearch)
         {
-            this.repository = repository;
+            this.repositoryUpdate = repositoryUpdate;
+            this.repositorySearch = repositorySearch;
         }
         public async Task<int> UpdateSubscriptionTypeAsync(SubscriptionTypeUpdateModel updateSubscriptionType)
         {
@@ -22,8 +24,13 @@ namespace Application.Services.SubscriptionType
 
             if (!subscriptionType.PriceGreaterThanZero())
                 throw new Exception("Price is less than zero");
-            
-            return await repository.UpdateSubscriptionTypeAsync(subscriptionType);
+
+            var subscriptionTyperSearch = repositorySearch.GetByIdAsync(subscriptionType.Id);
+
+            if (subscriptionTyperSearch == null)
+                throw new Exception("Subscription Type does not exist");
+
+            return await repositoryUpdate.UpdateSubscriptionTypeAsync(subscriptionType);
         }
     }
 }
