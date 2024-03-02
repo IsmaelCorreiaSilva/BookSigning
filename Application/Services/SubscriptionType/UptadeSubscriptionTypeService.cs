@@ -25,7 +25,7 @@ namespace Application.Services.SubscriptionType
             if (!subscriptionType.PriceGreaterThanZero())
                 throw new Exception("Price is less than zero");
 
-            var subscriptionTyperSearch = repositorySearch.GetByIdAsync(subscriptionType.Id);
+            var subscriptionTyperSearch = await repositorySearch.GetByIdAsync(subscriptionType.Id);
 
             if (subscriptionTyperSearch == null)
                 throw new Exception("Subscription Type does not exist");

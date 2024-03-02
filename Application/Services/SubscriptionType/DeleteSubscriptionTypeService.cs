@@ -6,15 +6,26 @@ namespace Application.Services.SubscriptionType
 {
     public class DeleteSubscriptionTypeService : IDeleteSubscriptionTypeService
     {
-        private readonly IDeleteSubscriptionTypeRepository repository;
+        private readonly IDeleteSubscriptionTypeRepository repositoryDelete;
+        private readonly ISearchSubscriptionTypeRepository repositorySearch;
 
-        public DeleteSubscriptionTypeService(IDeleteSubscriptionTypeRepository repository)
+        public DeleteSubscriptionTypeService(IDeleteSubscriptionTypeRepository repositoryDelete,
+            ISearchSubscriptionTypeRepository repositorySearch)
         {
-            this.repository = repository;
+            this.repositoryDelete = repositoryDelete;
+            this.repositorySearch = repositorySearch;
         }
-        public Task<int> DeleteByIdAsync(int id)
+        public async Task<int> DeleteByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            if(id < 0)
+                throw new Exception("Invalid ID");
+
+            var subscriptionType = await repositorySearch.GetByIdAsync(id);
+
+            if (subscriptionType == null)
+                throw new Exception("Subscription Type does not exist");
+
+            return await repositoryDelete.DeleteByIdAsync(id);
         }
     }
 }

@@ -22,10 +22,15 @@ namespace Infra.IoC.Configuration
             //repositories
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<ICreateSubscriptionTypeRepository, CreateSubscriptionTypeRepository>();
+            services.AddScoped<IUpdateSubscriptionTypeRepository, UpdateSubscriptionTypeRepository>();
+            services.AddScoped<IDeleteSubscriptionTypeRepository, DeleteSubscriptionTypeRepository>();
+            services.AddScoped<ISearchSubscriptionTypeRepository, SearchSubscriptionTypeRepository>();
 
             //services
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<ICreateSubscriptionTypeService, CreateSubscriptionTypeService>();
+            services.AddScoped<IUpdateSubscriptionTypeService, UptadeSubscriptionTypeService>();
+            services.AddScoped<IDeleteSubscriptionTypeService, DeleteSubscriptionTypeService>();
         }
     }
 }
