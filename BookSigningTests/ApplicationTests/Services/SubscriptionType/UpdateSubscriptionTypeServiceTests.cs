@@ -6,7 +6,7 @@ using Core.Interfaces.SubscriptionType;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 
-namespace BookSigningTests.ApplicationTests.Services
+namespace BookSigningTests.ApplicationTests.Services.SubscriptionType
 {
     public class UpdateSubscriptionTypeServiceTests
     {
@@ -14,13 +14,13 @@ namespace BookSigningTests.ApplicationTests.Services
         public async Task SubscriptionTypeValid_UpdateSubscription_ReturnTrue()
         {
             //Arrange
-            var subscriptionType = new SubscriptionTypeUpdateModel(1,"Primium", "100", 100); 
+            var subscriptionType = new SubscriptionTypeUpdateModel(1, "Primium", "100", 100);
             var repositoryUpdate = Substitute.For<IUpdateSubscriptionTypeRepository>();
             var repositorySearch = Substitute.For<ISearchSubscriptionTypeRepository>();
             var service = new UptadeSubscriptionTypeService(repositoryUpdate, repositorySearch);
             repositorySearch.GetByIdAsync(Arg.Any<int>())
                 .Returns(subscriptionType.ToEntity());
-            repositoryUpdate.UpdateSubscriptionTypeAsync(Arg.Any<SubscriptionType>())
+            repositoryUpdate.UpdateSubscriptionTypeAsync(Arg.Any<Core.Entities.SubscriptionType>())
                 .Returns(1);
             var expected = 1;
 
@@ -40,7 +40,7 @@ namespace BookSigningTests.ApplicationTests.Services
             var service = new UptadeSubscriptionTypeService(repositoryUpdate, repositorySearch);
             repositorySearch.GetByIdAsync(Arg.Any<int>())
                 .Returns(subscriptionType.ToEntity());
-            repositoryUpdate.UpdateSubscriptionTypeAsync(Arg.Any<SubscriptionType>())
+            repositoryUpdate.UpdateSubscriptionTypeAsync(Arg.Any<Core.Entities.SubscriptionType>())
                 .Returns(0);
             var expected = 0;
 
@@ -62,7 +62,7 @@ namespace BookSigningTests.ApplicationTests.Services
             var service = new UptadeSubscriptionTypeService(repositoryUpdate, repositorySearch);
             repositorySearch.GetByIdAsync(Arg.Any<int>())
                 .ReturnsNull();
-            repositoryUpdate.UpdateSubscriptionTypeAsync(Arg.Any<SubscriptionType>())
+            repositoryUpdate.UpdateSubscriptionTypeAsync(Arg.Any<Core.Entities.SubscriptionType>())
                 .Returns(0);
             var expected = 0;
 
@@ -82,7 +82,7 @@ namespace BookSigningTests.ApplicationTests.Services
             var repositorySearch = Substitute.For<ISearchSubscriptionTypeRepository>();
             var service = new UptadeSubscriptionTypeService(repositoryUpdate, repositorySearch);
             repositorySearch.GetByIdAsync(Arg.Any<int>()).ReturnsNull();
-            repositoryUpdate.UpdateSubscriptionTypeAsync(Arg.Any<SubscriptionType>())
+            repositoryUpdate.UpdateSubscriptionTypeAsync(Arg.Any<Core.Entities.SubscriptionType>())
                 .Returns(0);
 
             //Act

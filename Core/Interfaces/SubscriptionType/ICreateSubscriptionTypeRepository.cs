@@ -3,6 +3,6 @@ namespace Core.Interfaces.SubscriptionType
 {
     public interface ICreateSubscriptionTypeRepository
     {
-        Task<int> CreateSubscriptionTypeAsync(Entities.SubscriptionType subscriptionTpe);
+        Task<int> CreateSubscriptionTypeAsync(Entities.SubscriptionType subscriptionType);
     }
 }

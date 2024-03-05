@@ -5,25 +5,25 @@ using Core.Entities;
 using Core.Interfaces.SubscriptionType;
 using NSubstitute;
 
-namespace BookSigningTests.ApplicationTests.Services
+namespace BookSigningTests.ApplicationTests.Services.SubscriptionType
 {
     public class CreateSubscriptionTypeServiceTests
     {
-        
+
         [Fact]
         public async Task SubscriptionTypeValid_CreateNewSubscriptionType_ReturnTrue()
         {
             //Arrange
-            var subscriptionType = new SubscriptionTypeCreateModel("Primium", "100",100);
+            var subscriptionType = new SubscriptionTypeCreateModel("Primium", "100", 100);
             var repository = Substitute.For<ICreateSubscriptionTypeRepository>();
             var service = new CreateSubscriptionTypeService(repository);
-            repository.CreateSubscriptionTypeAsync(Arg.Any<SubscriptionType>())
+            repository.CreateSubscriptionTypeAsync(Arg.Any<Core.Entities.SubscriptionType>())
                 .Returns(1);
             var expected = 1;
 
             //Act
             var result = await service.CreateSubscriptionTypeAsync(subscriptionType);
-             
+
             //Assert
             Assert.Equal(result, expected);
         }
@@ -34,9 +34,9 @@ namespace BookSigningTests.ApplicationTests.Services
             var subscriptionType = new SubscriptionTypeCreateModel("Primium", "100", -100);
             var repository = Substitute.For<ICreateSubscriptionTypeRepository>();
             var service = new CreateSubscriptionTypeService(repository);
-            repository.CreateSubscriptionTypeAsync(Arg.Any<SubscriptionType>())
+            repository.CreateSubscriptionTypeAsync(Arg.Any<Core.Entities.SubscriptionType>())
                 .Returns(0);
-            
+
             //Act
             var expection = Assert.ThrowsAsync<Exception>
                 (async () => await service.CreateSubscriptionTypeAsync(subscriptionType));
@@ -51,7 +51,7 @@ namespace BookSigningTests.ApplicationTests.Services
             SubscriptionTypeCreateModel subscriptionType = null;
             var repository = Substitute.For<ICreateSubscriptionTypeRepository>();
             var service = new CreateSubscriptionTypeService(repository);
-            repository.CreateSubscriptionTypeAsync(Arg.Any<SubscriptionType>())
+            repository.CreateSubscriptionTypeAsync(Arg.Any<Core.Entities.SubscriptionType>())
                 .Returns(0);
 
             //Act

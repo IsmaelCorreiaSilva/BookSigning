@@ -6,7 +6,7 @@ using Core.Interfaces.SubscriptionType;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 
-namespace BookSigningTests.ApplicationTests.Services
+namespace BookSigningTests.ApplicationTests.Services.SubscriptionType
 {
     public class DeleteSubscriptionTypeServiceTests
     {
@@ -15,7 +15,7 @@ namespace BookSigningTests.ApplicationTests.Services
         {
             //Arrange
             var id = 1;
-            var subscriptionType = new SubscriptionType(1,"Premium","Teste",100);
+            var subscriptionType = new Core.Entities.SubscriptionType(1, "Premium", "Teste", 100);
             var repositoryDelete = Substitute.For<IDeleteSubscriptionTypeRepository>();
             var repositorySearch = Substitute.For<ISearchSubscriptionTypeRepository>();
             var service = new DeleteSubscriptionTypeService(repositoryDelete, repositorySearch);
@@ -42,11 +42,11 @@ namespace BookSigningTests.ApplicationTests.Services
             repositoryDelete.DeleteByIdAsync(Arg.Any<int>())
                 .Returns(1);
             //repositorySearch.GetByIdAsync(Arg.Any<int>()).Returns(subscriptionType);
-            
+
 
             //Act
-            var exception =  Assert.ThrowsAsync<Exception>(
-                async () =>  await service.DeleteByIdAsync(id));
+            var exception = Assert.ThrowsAsync<Exception>(
+                async () => await service.DeleteByIdAsync(id));
 
             //Assert
             Assert.Equal("Invalid ID", exception.Result.Message);
