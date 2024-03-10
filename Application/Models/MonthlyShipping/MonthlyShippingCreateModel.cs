@@ -1,16 +1,18 @@
 ﻿
+using Application.Models.Book;
+
 namespace Application.Models.MonthlyShipping
 {
     public class MonthlyShippingCreateModel
     {
-        public MonthlyShippingCreateModel(string description, int bookId, string gift)
+        public MonthlyShippingCreateModel(string description, ICollection<BookItemModel> books, string gift)
         {
             Description = description;
-            BookId = bookId;
+            Books = books;
             Gift = gift;
         }
         public string Description { get; set; }
-        public int BookId { get; set; }
+        public ICollection<BookItemModel> Books { get; set; }
         public string Gift { get; set; }
 
         public Core.Entities.MonthlyShipping ToEntity()
