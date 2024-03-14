@@ -4,7 +4,7 @@ using Core.Interfaces.Book;
 
 namespace Application.Services.Book
 {
-    internal class SearchBookService : ISearchBookService
+    public class SearchBookService : ISearchBookService
     {
         private readonly ISearchBookRepository repository;
 

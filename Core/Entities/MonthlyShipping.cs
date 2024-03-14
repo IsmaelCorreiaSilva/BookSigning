@@ -21,9 +21,14 @@ namespace Core.Entities
         public ICollection<Book> Books { get; private set; }
         public string Gift { get; private set; }
 
+        public void AddBook(ICollection<Book> books)
+        {
+            if(books != null) 
+                Books = books;
+        }
         public bool OwnsOneOrMoreBook()
         {
-            return true;
+            return Books.Count > 0;
         }
     }
 }

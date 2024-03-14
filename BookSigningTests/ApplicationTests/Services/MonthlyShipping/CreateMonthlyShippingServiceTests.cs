@@ -1,6 +1,7 @@
 ﻿using Application.Models.Book;
 using Application.Models.MonthlyShipping;
 using Application.Services.MonthlyShipping;
+using Core.Interfaces.Book;
 using Core.Interfaces.MonthlyShipping;
 using NSubstitute;
 
@@ -12,9 +13,13 @@ namespace BookSigningTests.ApplicationTests.Services.MonthlyShipping
         public async Task MonthlyShippingValid_CreateNewMonthlyShipping_ReturnTrue()
         {
             //Arrenge
-            var monthlyShipping = new MonthlyShippingCreateModel("Os livros deste é sobre...",null,"Marca pagina");
+            var books = new List<BookItemModel>();
+            books.Add(new BookItemModel(1));
+            books.Add(new BookItemModel(2));
+            var monthlyShipping = new MonthlyShippingCreateModel("Os livros deste é sobre...",books,"Marca pagina");
             var repositoryMonthlyShipping = Substitute.For<ICreateMonthlyShippingRepository>();
-            var serviceMonthlyShipping = new CreateMonthlyShippingService(repositoryMonthlyShipping);
+            var repositorySearchBook = Substitute.For<ISearchBookRepository>();
+            var serviceMonthlyShipping = new CreateMonthlyShippingService(repositoryMonthlyShipping, repositorySearchBook);
             repositoryMonthlyShipping.CreateMonthlyShippingAsync(Arg.Any<Core.Entities.MonthlyShipping>()).Returns(1);
             var expected = 1;
             //Act
@@ -29,8 +34,9 @@ namespace BookSigningTests.ApplicationTests.Services.MonthlyShipping
             //Arrenge
             MonthlyShippingCreateModel monthlyShipping = null;
             var repositoryMonthlyShipping = Substitute.For<ICreateMonthlyShippingRepository>();
-            var serviceMonthlyShipping = new CreateMonthlyShippingService(repositoryMonthlyShipping);
-            
+            var repositorySearchBook = Substitute.For<ISearchBookRepository>();
+            var serviceMonthlyShipping = new CreateMonthlyShippingService(repositoryMonthlyShipping, repositorySearchBook);
+
             //Act
             var expection = Assert.ThrowsAsync<Exception>
                 ( async () => await serviceMonthlyShipping.CreateMonthlyShippingAsync(monthlyShipping));
@@ -41,9 +47,13 @@ namespace BookSigningTests.ApplicationTests.Services.MonthlyShipping
         public async Task OneOrMoreBook_CreateNewMonthlyShipping_ReturnTrue()
         {
             //Arrenge
-            var monthlyShipping = new MonthlyShippingCreateModel("Os livros deste é sobre...", null, "Marca pagina");
+            var books = new List<BookItemModel>();
+            books.Add(new BookItemModel(1));
+            books.Add(new BookItemModel(2));
+            var monthlyShipping = new MonthlyShippingCreateModel("Os livros deste é sobre...", books, "Marca pagina");
             var repositoryMonthlyShipping = Substitute.For<ICreateMonthlyShippingRepository>();
-            var serviceMonthlyShipping = new CreateMonthlyShippingService(repositoryMonthlyShipping);
+            var repositorySearchBook = Substitute.For<ISearchBookRepository>();
+            var serviceMonthlyShipping = new CreateMonthlyShippingService(repositoryMonthlyShipping, repositorySearchBook);
             repositoryMonthlyShipping.CreateMonthlyShippingAsync(Arg.Any<Core.Entities.MonthlyShipping>()).Returns(1);
             var expected = 1;
 
@@ -58,12 +68,11 @@ namespace BookSigningTests.ApplicationTests.Services.MonthlyShipping
         {
             //Arrenge
             var books = new List<BookItemModel>();
-            books.Add(new BookItemModel(1));
-            books.Add(new BookItemModel(2));
             var monthlyShipping = new MonthlyShippingCreateModel("Os livros deste é sobre...", books, "Marca pagina");
             var repositoryMonthlyShipping = Substitute.For<ICreateMonthlyShippingRepository>();
-            var serviceMonthlyShipping = new CreateMonthlyShippingService(repositoryMonthlyShipping);
-            //repositoryMonthlyShipping.CreateMonthlyShippingAsync(Arg.Any<Core.Entities.MonthlyShipping>()).Returns(1);
+            var repositorySearchBook = Substitute.For<ISearchBookRepository>();
+            var serviceMonthlyShipping = new CreateMonthlyShippingService(repositoryMonthlyShipping, repositorySearchBook);
+            
 
             //Act
             var expection = Assert.ThrowsAsync<Exception>
