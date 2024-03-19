@@ -35,15 +35,10 @@ namespace BookSigningTests.ApplicationTests.Services.SubscriptionType
         {
             //Arrange
             var id = -1;
-            //var subscriptionType = new SubscriptionType(-1, "Premium", "Teste", 100);
             var repositoryDelete = Substitute.For<IDeleteSubscriptionTypeRepository>();
             var repositorySearch = Substitute.For<ISearchSubscriptionTypeRepository>();
             var service = new DeleteSubscriptionTypeService(repositoryDelete, repositorySearch);
-            repositoryDelete.DeleteByIdAsync(Arg.Any<int>())
-                .Returns(1);
-            //repositorySearch.GetByIdAsync(Arg.Any<int>()).Returns(subscriptionType);
-
-
+          
             //Act
             var exception = Assert.ThrowsAsync<Exception>(
                 async () => await service.DeleteByIdAsync(id));
@@ -52,15 +47,15 @@ namespace BookSigningTests.ApplicationTests.Services.SubscriptionType
             Assert.Equal("Invalid ID", exception.Result.Message);
         }
         [Fact]
-        public async Task IdDoesNotExist_DeleteSubscriptionType_ReturnExpection()
+        public async Task SubscriptionTypeDoesNotExist_DeleteSubscriptionType_ReturnExpection()
         {
             //Arrange
             var id = 55;
             var repositoryDelete = Substitute.For<IDeleteSubscriptionTypeRepository>();
             var repositorySearch = Substitute.For<ISearchSubscriptionTypeRepository>();
             var service = new DeleteSubscriptionTypeService(repositoryDelete, repositorySearch);
-            repositoryDelete.DeleteByIdAsync(Arg.Any<int>())
-                .Returns(1);
+            //repositoryDelete.DeleteByIdAsync(Arg.Any<int>())
+            //    .Returns(1);
             repositorySearch.GetByIdAsync(Arg.Any<int>()).ReturnsNull();
 
 
