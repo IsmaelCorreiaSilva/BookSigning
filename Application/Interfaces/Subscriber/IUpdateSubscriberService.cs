@@ -5,6 +5,6 @@ namespace Application.Interfaces.Subscriber
 {
     public interface IUpdateSubscriberService
     {
-        Task<int> UpdateSubscriberAsync(SubscriberCreateModel updateSubscriber);
+        Task<int> UpdateSubscriberAsync(SubscriberUpdateModel updateSubscriber);
     }
 }

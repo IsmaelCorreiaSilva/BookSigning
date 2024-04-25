@@ -11,6 +11,14 @@ namespace Core.Entities
             Phone = phone;
             Address = address;
         }
+        public Subscriber(int id, string name, string email, string phone, Address address)
+        {
+            Id = id;
+            Name = name;
+            Email = email;
+            Phone = phone;
+            Address = address;
+        }
         public int Id { get; private set; }
         public string Name { get; private set; } 
         public string Email { get; private set; }
