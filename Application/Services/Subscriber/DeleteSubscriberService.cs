@@ -1,9 +1,10 @@
 ﻿
+using Application.Interfaces.Subscriber;
 using Core.Interfaces.Subscriber;
 
 namespace Application.Services.Subscriber
 {
-    public class DeleteSubscriberService
+    public class DeleteSubscriberService : IDeleteSubscriberService
     {
         private readonly IDeleteSubscriberRepository deleteSubscriberRepository;
         private readonly ISearchSubscriberRepository searchSubscriberRepository;
