@@ -12,14 +12,16 @@ namespace Application.Services.Subscriber
         {
             this.searchSubscriberRepository = searchSubscriberRepository;
         }
-        public Task<IEnumerable<SubscriberViewModel>> GetAllAsync()
+        public async Task<IEnumerable<SubscriberViewModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var listSubscriber = await  searchSubscriberRepository.GetAllAsync();
+            return SubscriberViewModel.ListEntittyFromListViewModel(listSubscriber);
         }
 
-        public Task<SubscriberViewModel> GetByIdAsync(int id)
+        public async Task<SubscriberViewModel> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var subscriber = await searchSubscriberRepository.GetByIdAsync(id);
+            return SubscriberViewModel.FromEntity(subscriber);
         }
     }
 }

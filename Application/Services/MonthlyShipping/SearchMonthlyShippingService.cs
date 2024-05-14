@@ -14,14 +14,16 @@ namespace Application.Services.MonthlyShipping
         {
             this.searchMonthlyShippingRepository = searchMonthlyShippingRepository;
         }
-        public Task<IEnumerable<MonthlyShippingViewModel>> GetAllAsync()
+        public async Task<IEnumerable<MonthlyShippingViewModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var listMonthlyShipping = await searchMonthlyShippingRepository.GetAllAsync();
+            return MonthlyShippingViewModel.EntityListForViewModelList(listMonthlyShipping);
         }
 
-        public Task<MonthlyShippingViewModel> GetByIdAsync(int id)
+        public async Task<MonthlyShippingViewModel> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var monthlyShipping = await searchMonthlyShippingRepository.GetByIdAsync(id);
+            return MonthlyShippingViewModel.FromEntity(monthlyShipping);
         }
     }
 }

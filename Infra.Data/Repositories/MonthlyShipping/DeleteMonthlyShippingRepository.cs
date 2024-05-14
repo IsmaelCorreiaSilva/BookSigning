@@ -1,5 +1,6 @@
 ﻿
 using Core.Interfaces.MonthlyShipping;
+using Dapper;
 using Infra.Data.Context;
 
 namespace Infra.Data.Repositories.MonthlyShipping
@@ -12,9 +13,16 @@ namespace Infra.Data.Repositories.MonthlyShipping
         {
             this.context = context;
         }
-        public Task<int> DeleteByIdAsync(int id)
+        public async Task<int> DeleteByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var sql = "DELETE FROM MonthlyShipping WHERE mon_id = @id";
+            var parameters = new
+            {
+               id
+            };
+
+            using var connection = context.CreateConnection();
+            return await connection.ExecuteAsync(sql, parameters);
         }
     }
 }

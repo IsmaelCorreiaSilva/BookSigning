@@ -1,6 +1,4 @@
-﻿
-using Core.Entities;
-using Core.Interfaces.SubscriptionType;
+﻿using Core.Interfaces.SubscriptionType;
 using Dapper;
 using Infra.Data.Context;
 

@@ -1,6 +1,6 @@
 ﻿
-
 using Core.Interfaces.MonthlyShipping;
+using Dapper;
 using Infra.Data.Context;
 
 namespace Infra.Data.Repositories.MonthlyShipping
@@ -13,14 +13,23 @@ namespace Infra.Data.Repositories.MonthlyShipping
         {
             this.context = context;
         }
-        public Task<IEnumerable<Core.Entities.MonthlyShipping>> GetAllAsync()
+        public async Task<IEnumerable<Core.Entities.MonthlyShipping>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var sql = "SELECT * FROM MonthlyShipping";
+            using var connection = context.CreateConnection();
+            return await connection.QueryAsync<Core.Entities.MonthlyShipping>(sql);
         }
 
-        public Task<Core.Entities.MonthlyShipping> GetByIdAsync(int id)
+        public async Task<Core.Entities.MonthlyShipping> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var sql = "SELECT * FROM MonthlyShipping mon_id = @id";
+            var parameters = new
+            {
+                id
+            };
+
+            using var connection = context.CreateConnection();
+            return await connection.QuerySingleOrDefaultAsync<Core.Entities.MonthlyShipping>(sql,parameters);
         }
     }
 }

@@ -16,5 +16,15 @@ namespace Application.Models.SubscriptionType
 
         public static SubscriptionTypeViewModel FormEntity(Core.Entities.SubscriptionType subscription) 
             => new(subscription.Title,subscription.Description,subscription.Price);
+
+        public static IEnumerable<SubscriptionTypeViewModel> ListEntityFromListViewModel(IEnumerable<Core.Entities.SubscriptionType> list)
+        {
+            var listSubscriptionType = new List<SubscriptionTypeViewModel>();
+            foreach (var item in list)
+            {
+                listSubscriptionType.Add(FormEntity(item));
+            }
+            return listSubscriptionType;
+        }
     }
 }

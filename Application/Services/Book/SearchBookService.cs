@@ -15,7 +15,7 @@ namespace Application.Services.Book
         public async Task<IEnumerable<BookViewModel>> GetAllAsync()
         {
             var books = await repository.GetAllAsync();
-            return BookViewModel.ListFromEntity(books);
+            return BookViewModel.EntityListForViewModelList(books);
         }
 
         public async Task<BookViewModel> GetByIdAsync(int id)

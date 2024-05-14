@@ -1,5 +1,7 @@
 ﻿
+using Core.Entities;
 using Core.Interfaces.MonthlyShipping;
+using Dapper;
 using Infra.Data.Context;
 
 namespace Infra.Data.Repositories.MonthlyShipping
@@ -13,9 +15,18 @@ namespace Infra.Data.Repositories.MonthlyShipping
             this.context = context;
         }
 
-        public Task<int> UpdateMonthlyShippingAsync(Core.Entities.MonthlyShipping monthlyShipping)
+        public async Task<int> UpdateMonthlyShippingAsync(Core.Entities.MonthlyShipping monthlyShipping)
         {
-            throw new NotImplementedException();
+            var sql = "UPDATE MonthlyShipping SET mon_description = @Description, mon_gift = @Gift WHERE mon_id = @Id";
+            var parameters = new
+            {
+                monthlyShipping.Id,
+                monthlyShipping.Description,
+                monthlyShipping.Gift
+            };
+            using var connection = context.CreateConnection();
+            var result = await connection.ExecuteAsync(sql, parameters);
+            return result;
         }
     }
 }

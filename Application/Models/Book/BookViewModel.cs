@@ -22,7 +22,7 @@ namespace Application.Models.Book
         public static BookViewModel FromEntity(Core.Entities.Book book)
             => new(book.Id, book.Title, book.Summary, book.PublishingCompany, book.Author, book.ReleaseDate);
 
-        public static IEnumerable<BookViewModel> ListFromEntity(IEnumerable<Core.Entities.Book> books)
+        public static IEnumerable<BookViewModel> EntityListForViewModelList(IEnumerable<Core.Entities.Book> books)
         {
             var listBooks = new List<BookViewModel>();
             foreach (var item in books)

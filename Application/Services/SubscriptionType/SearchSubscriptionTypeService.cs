@@ -13,14 +13,16 @@ namespace Application.Services.SubscriptionType
         {
             this.searchSubscriptionTypeRepository = searchSubscriptionTypeRepository;
         }
-        public Task<IEnumerable<SubscriptionTypeViewModel>> GetAllAsync()
+        public async Task<IEnumerable<SubscriptionTypeViewModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var listSubscriptionType = await searchSubscriptionTypeRepository.GetAllAsync();
+            return SubscriptionTypeViewModel.ListEntityFromListViewModel(listSubscriptionType);
         }
 
-        public Task<SubscriptionTypeViewModel> GetByIdAsync(int id)
+        public async Task<SubscriptionTypeViewModel> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var subscriptionType = await searchSubscriptionTypeRepository.GetByIdAsync(id);
+            return SubscriptionTypeViewModel.FormEntity(subscriptionType);
         }
     }
 }
